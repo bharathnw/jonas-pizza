@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { zip } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { IPizzaSize } from 'src/app/interfaces/IPizzaSize';
 import { IPizzaTopping } from 'src/app/interfaces/IPizzaToping';
 import { ITopping } from 'src/app/interfaces/IToping';
@@ -11,31 +11,20 @@ import { ITopping } from 'src/app/interfaces/IToping';
 })
 export class PizzaOrderComponent implements OnInit {
 
-  pizzaSizes: IPizzaSize[] =
-    [{ type: 'Small', price: 5, isDiscountApplicable: false },
-    { type: 'Medium', price: 7, isDiscountApplicable: false },
-    { type: 'Large', price: 8, isDiscountApplicable: false },
-    { type: 'Extra Large', price: 9, isDiscountApplicable: false }]
-    ;
+  pizzaSizes: IPizzaSize[] = [];
 
-  pizzaToppings: IPizzaTopping[] = [{
-    category: 'Veg Toppings', toppings: [
-      { name: 'Tomatoes', price: 1 },
-      { name: 'Onions', price: 0.5 },
-      { name: 'Bell Pepper', price: 1 },
-      { name: 'Mushrooms', price: 1.20 },
-      { name: 'Pineapple', price: 0.75 },
-    ]
-  },
-  {
-    category: 'Non Veg Toppings', toppings: [
-      { name: 'Sausage', price: 1 },
-      { name: 'Pepperoni', price: 2 },
-      { name: 'Barbeque chicken', price: 3 },
-    ]
-  }]
+  pizzaToppings: IPizzaTopping[] = [];
 
   selectedPizzas: any[] = [];
+
+  constructor(private _activatedRoute: ActivatedRoute) {
+    this._activatedRoute.data.subscribe(
+      data => {
+        this.pizzaSizes = data['resolverData'][0];
+        this.pizzaToppings = data['resolverData'][1];
+      }
+    )
+  }
 
   ngOnInit(): void {
 

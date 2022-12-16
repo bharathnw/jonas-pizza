@@ -49,12 +49,14 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Total</td>
+                        <td></td>
                         <td *ngFor="let size of pizzaSizes">
-                            <span [ngClass]="{'strike-off': size.isDiscountApplicable}">{{totals[size.type].calculated >
+                            <span class="font-weight-bold"
+                                [ngClass]="{'strike-off': size.isDiscountApplicable}">{{totals[size.type].calculated >
                                 0 ? (totals[size.type].calculated | currency:'USD'): ''}}</span>
                             <br>
-                            <span *ngIf="size.isDiscountApplicable">{{(totals[size.type].calculated -
+                            <span class="font-weight-bold"
+                                *ngIf="size.isDiscountApplicable">{{(totals[size.type].calculated -
                                 totals[size.type].discount) | currency:'USD'}}</span>
                         </td>
                     </tr>
