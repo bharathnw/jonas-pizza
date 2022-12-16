@@ -61,6 +61,7 @@ export class PizzaOrderComponent implements OnInit {
       this.totals[pizzaSize.type].calculated = 0;
       return;
     }
+    pizzaSize.isDiscountApplicable = false;
     //Calculating the total price based on the toppings
     this.totals[pizzaSize.type].calculated = pizzaSize.price + toppings.map(x => x.toppingPrice).reduce((a, b) => (a + b));
     this.calculateOffer(pizzaSize.type, toppings)
