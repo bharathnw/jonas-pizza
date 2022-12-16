@@ -1,1 +1,65 @@
-<p>pizza-order works!</p>
+<div class="container-fluid">
+    <button mat-raised-button color="primary" [routerLink]="['']">
+        <mat-icon>arrow_back</mat-icon>
+        Back</button>
+    <div class="col-sm-12 mt-2">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="custom-thead">
+                    <tr>
+                        <th rowspan="2" class="align-middle">
+                            Toppings
+                        </th>
+                        <th [attr.colspan]="pizzaSizes.length" class="text-center">Pizza Size</th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let item of pizzaSizes">
+                            {{item.type}} (${{item.price}})
+                        </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of pizzaToppings">
+                    <tr>
+                        <td class="table-info" [attr.colspan]="1+pizzaSizes.length">
+                            {{item.category}}
+                        </td>
+                    </tr>
+                    <tr *ngFor="let topping of item.toppings">
+                        <td class="align-middle">{{topping.name}} ({{topping.price | currency:'USD'}})</td>
+                        <td *ngFor="let size of pizzaSizes">
+                            <mat-checkbox color="primary"
+                                (change)="onTopingSelection($event.checked,topping, size)"></mat-checkbox>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th class="table-warning" [attr.colspan]="1+pizzaSizes.length">Total</th>
+                    </tr>
+                    <tr>
+                        <td>Offer</td>
+                        <td *ngFor="let size of pizzaSizes">
+
+                            <ng-container *ngIf="totals[size.type].discount > 0">
+                                {{totals[size.type].offer}}
+                                <mat-checkbox color="primary" [(ngModel)]="size.isDiscountApplicable">
+                                </mat-checkbox>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td *ngFor="let size of pizzaSizes">
+                            <span [ngClass]="{'strike-off': size.isDiscountApplicable}">{{totals[size.type].calculated >
+                                0 ? (totals[size.type].calculated | currency:'USD'): ''}}</span>
+                            <br>
+                            <span *ngIf="size.isDiscountApplicable">{{(totals[size.type].calculated -
+                                totals[size.type].discount) | currency:'USD'}}</span>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
