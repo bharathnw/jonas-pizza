@@ -31,7 +31,7 @@ export class OrderService {
       category: 'Non Veg Toppings', toppings: [
         { name: 'Sausage', price: 1 },
         { name: 'Pepperoni', price: 2 },
-        { name: 'Barbeque chicken', price: 3 },
+        { name: 'Barbecue chicken', price: 3 },
       ]
     }];
   }

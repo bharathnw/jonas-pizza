@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <button mat-raised-button color="primary" [routerLink]="['']">
+    <button mat-raised-button color="" [routerLink]="['']">
         <mat-icon>arrow_back</mat-icon>
         Back</button>
     <div class="col-sm-12 mt-2">
@@ -35,7 +35,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th class="table-warning" [attr.colspan]="1+pizzaSizes.length">Total</th>
+                        <th class="table-light" [attr.colspan]="1+pizzaSizes.length">Total</th>
                     </tr>
                     <tr>
                         <td>Offer</td>
@@ -49,8 +49,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td *ngFor="let size of pizzaSizes">
+                        <td class="table-warning"></td>
+                        <td *ngFor="let size of pizzaSizes" class="table-warning">
                             <span class="font-weight-bold"
                                 [ngClass]="{'strike-off': size.isDiscountApplicable}">{{totals[size.type].calculated >
                                 0 ? (totals[size.type].calculated | currency:'USD'): ''}}</span>
